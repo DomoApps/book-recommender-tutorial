@@ -1,6 +1,51 @@
-# Getting Started with Create React App
+# Book Recommender Application
+
+A React-based book recommendation application that suggests books based on user preferences using AI generation.
+
+![Book Recommender Screenshot](/public/thumbnail.png)
+
+## Overview
+
+This application allows users to:
+
+- Input their favorite books
+- Select preferred genres, moods, and book lengths
+- Receive AI-generated book recommendations tailored to their preferences
+
+The app integrates with:
+
+- OpenLibrary API for book search functionality
+- Domo AI for generating personalized book recommendations
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Installation
+
+Follow these steps to set up the project:
+
+- Clone this repository
+- Install dependencies:
+
+  ```bash
+  npm install
+  ```
+
+- Configure environment variables if needed (see [Configuration](#configuration) section)
+
+## Dependencies
+
+This project depends on:
+
+- **React** - Frontend UI library
+- **Ant Design** - UI component library for styling
+- **ryuu.js** - Domo platform SDK
+- **@domoinc/ryuu-proxy** - Proxy for communicating with Domo APIs
+
+## Configuration
+
+The application uses Domo's AI capabilities through the ryuu.js library. Make sure you have:
+
+- An active Domo account
 
 ## Available Scripts
 
@@ -29,6 +74,19 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+### `npm run upload`
+
+Builds the application and deploys it to your Domo instance. This script:
+
+1. Runs the `build` script
+2. Navigates to the build directory
+3. Publishes the app to Domo using the Domo CLI
+4. Returns to the project root directory
+
+```bash
+npm run upload
+```
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
@@ -39,32 +97,72 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## How the Application Works
+
+### User Interface
+
+The Book Recommender app offers an intuitive interface with:
+
+1. A search field to find and select favorite books using the OpenLibrary API
+2. Dropdown menus for selecting genre preferences, mood, and book length
+3. A "Get Recommendations" button to generate personalized book recommendations
+4. A results view displaying recommended books with titles, authors, and personalized explanations
+
+### Technical Architecture
+
+The application uses:
+
+- **React** and **Ant Design** for the frontend UI
+- **OpenLibrary API** for real-time book search capabilities
+- **Domo AI integration** to generate personalized book recommendations based on:
+  - User's favorite books
+  - Selected genre preferences
+  - Desired mood/tone
+  - Preferred book length
+
+### Data Flow
+
+1. User inputs their book preferences and favorites
+2. Application sends this data to the Domo AI API
+3. AI processes the inputs using the defined system and user prompts
+4. Results are transformed into a standardized JSON format
+5. UI displays the recommendations with relevant explanations
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This application is designed to be deployed to the Domo platform. Use the provided upload script to deploy:
 
-### Analyzing the Bundle Size
+```bash
+npm run upload
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This will build the application and deploy it to your Domo instance using the Domo CLI.
 
-### Making a Progressive Web App
+### Prerequisites for Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Domo CLI tools installed
+- Proper authentication configured for your Domo instance
+- Appropriate permissions to publish applications
 
-### Advanced Configuration
+## Customization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+You can customize various aspects of the application:
 
-### Deployment
+- Modify the UI components in `App.js` and `App.css`
+- Adjust the AI prompts in the `userPrompt` and `systemPrompt` variables
+- Add or remove genres, moods, and book length options as needed
+- Change the visual theme by updating the styling in `App.css`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
 
-### `npm run build` fails to minify
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+_For Create React App specific documentation, see the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)._
