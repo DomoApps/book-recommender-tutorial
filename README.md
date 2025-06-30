@@ -46,7 +46,6 @@ This project depends on:
 The application uses Domo's AI capabilities through the ryuu.js library. Make sure you have:
 
 - An active Domo account
-- Proper authorization set in the `manifest.json` file
 
 ## Available Scripts
 
