@@ -1,168 +1,123 @@
-# Book Recommender Application
+> ### This project was bootstrapped with [Vite](https://vitejs.dev/).
 
-A React-based book recommendation application that suggests books based on user preferences using AI generation.
-
-![Book Recommender Screenshot](/public/thumbnail.png)
+# DomoApps Advanced App Platform Template
 
 ## Overview
 
-This application allows users to:
+Vite Template optimized for building advanced DomoApps.
 
-- Input their favorite books
-- Select preferred genres, moods, and book lengths
-- Receive AI-generated book recommendations tailored to their preferences
+* [Usage](#usage)
+* [Running project (local dev)](#running-project-local-dev)
+* [Building and uploading](#building-and-uploading)
+* [Login and proxy](#login-and-proxy)
+  + [Login](#login)
+  + [Dev-server proxy](#dev-server-proxy)
+* [Available Scripts](#available-scripts)
+  + [`pnpm generate`](#pnpm-generate)
+      - [*Components*](#components)
+      - [*Reducers*](#reducers)
+  + [`pnpm start`](#pnpm-start)
+  + [`pnpm test`](#pnpm-test)
+  + [`pnpm build`](#pnpm-build)
+  + [`pnpm storybook`](#pnpm-storybook)
+* [git hooks](#git-hooks)
+* [Additional notes](#additional-notes)
 
-The app integrates with:
+## Usage
 
-- OpenLibrary API for book search functionality
-- Domo AI for generating personalized book recommendations
+The easiest way to use this template is to run the `da` cli command found in [@domoinc/da](https://www.npmjs.com/package/@domoinc/da). Please follow the installation instructions there and use the `da new my-app-name` command to create a new project.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+* Note: you can also manually clone this repository, or use a tool like [degit](https://www.npmjs.com/package/degit) to scaffold a project using this template. _However_, you would have to manually replace the placeholders in the template (e.g. app name, package manager, etc).
 
-## Installation
+## Running project (local dev)
 
-Follow these steps to set up the project:
+Once your template is set up and ready, use the `start` script to run the local server. e.g:
 
-- Clone this repository
-- Install dependencies:
+`pnpm start`
 
-  ```bash
-  npm install
-  ```
+By default, the build tool will attempt to run the server on port 3000, 3001, or 3002 (in that order). If all these ports are busy, a random available port will be used.
 
-- Configure environment variables if needed (see [Configuration](#configuration) section)
+## Building and uploading
 
-## Dependencies
+The project can be built using the `build` script. But an `upload` script is also provided, which will prepare and build the project, and upload it to your Domo instance.
 
-This project depends on:
+* Note: make sure to [log into](#login-and-proxy) your Domo instance before attempting to upload your project.
 
-- **React** - Frontend UI library
-- **Ant Design** - UI component library for styling
-- **ryuu.js** - Domo platform SDK
-- **@domoinc/ryuu-proxy** - Proxy for communicating with Domo APIs
+## Login and proxy
 
-## Configuration
+In order to send requests to your Domo instance from within your app while running a local server, or to upload your project to your instance, you must first log into it.
 
-The application uses Domo's AI capabilities through the ryuu.js library. Make sure you have:
 
-- An active Domo account
+### Login
+
+Use the ["ryuu" cli](https://www.npmjs.com/package/ryuu) to login to your Domo instance: `domo login`.
+
+### Dev-server proxy
+
+Before using endpoints in your instance, you must login and upload your project at least once. This is required to obtain a proxy id to provide to the local server's proxy. Follow these steps:
+
+1. [Log into](#login) your instance
+2. Upload your base app to your Domo instance using the `upload` script (e.g. `pnpm upload`). The project will build, add all assets to the `build` folder, and then upload those assets to Domo.
+3. The `manifest.json` file in the `build` folder will be modified by the domoapps cli to include an `id` property. You will want to copy this `id` into the manifest in your `public` folder so that it doesn't continue to create a new `id` (and therefore, a new asset) on each upload. This is your new asset's id.
+4. On your Domo instance, navigate to your Asset Library, locate the newly create asset, and create a new card for it.
+5. Back in your project, add a `proxyId` property to the `manifest.json` file in your `public` folder (or `src/manifestOverrides`) using the id of the newly created card. See [this documentation](https://www.npmjs.com/package/@domoinc/ryuu-proxy#user-content-getting-a-proxyid-advanced) for more information on obtaining the proxy id.
 
 ## Available Scripts
 
-In the project directory, you can run:
+The following scripts are provided in the base template. The examples in this section use `pnpm`, but you can use your favorite package manager to run them (e.g. `pnpm`, `npm run`, `yarn`)
 
-### `npm start`
+### `pnpm generate`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The command `pnpm generate` will generate a new component or reducer slice, and add it to your project (or the [`da` cli]([@domoinc/da](https://www.npmjs.com/package/@domoinc/da#da-generate-template)), if installed globally)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### *Components*
 
-### `npm test`
+The new component will be added in the `src/components` folder. The storybook and test files (if selected) will be included in the same folder.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### *Reducers*
 
-### `npm run build`
+Generating a slice will produce the following modifications to your project:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. A new folder will be created in the `/src/reducers` directory of your project and a `slice.ts` file will be added to it with some boiler plate examples for actions and selectors using Redux Toolkit.
+More info can be found in the Redux Toolkit [documentation](https://redux-toolkit.js.org/api/createSlice).
+2. The `index.ts` file in the base of the reducer folder will be modified to import your new slice and wire it up.
+_As long as you always create slices using the generator command, you should never need to touch this file._
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `pnpm start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Runs the app in the development mode.
+Open [localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `npm run upload`
+The page will hot reload as you make edits and save files.
+Linting errors will be logged in the console.
 
-Builds the application and deploys it to your Domo instance. This script:
+### `pnpm build`
 
-1. Runs the `build` script
-2. Navigates to the build directory
-3. Publishes the app to Domo using the Domo CLI
-4. Returns to the project root directory
+Builds the app for production to the `build` folder.
 
-```bash
-npm run upload
-```
+Prettier is used in the project to auto-format your code, and eslint is used to maintain code rules. Both scripts are run before every build, along with any unit tests present.
 
-### `npm run eject`
+### `pnpm test`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Launches the test runner in watch mode.
+See the section about [writing tests](https://vitest.dev/guide/#writing-tests) for more information.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### `pnpm storybook`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Starts up a storybook server to host any components that have been generated with a storybook file.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+More on how to set up stories at: https://storybook.js.org/docs/writing-stories#defining-stories
 
-## How the Application Works
+## git hooks
 
-### User Interface
+Husky is used to provide access to git hooks. The `prepare` script runs automatically the first time the project is set up via a package manager.
 
-The Book Recommender app offers an intuitive interface with:
+Husky and lint-staged are used to run scripts during certain stages of git commits. For example, running `git commit` will trigger a `pre-commit` and a `post-commit`.
 
-1. A search field to find and select favorite books using the OpenLibrary API
-2. Dropdown menus for selecting genre preferences, mood, and book length
-3. A "Get Recommendations" button to generate personalized book recommendations
-4. A results view displaying recommended books with titles, authors, and personalized explanations
+You can disable husky by removing the `.husky` folder from your project and the `hooksPath` property from your `.git/config` file. After that, you can remove the `husky` and `lint-staged` packages from your project, as well as the `prepare` script and `lint-staged` properties from `package.json`.
 
-### Technical Architecture
+## Additional notes
 
-The application uses:
-
-- **React** and **Ant Design** for the frontend UI
-- **OpenLibrary API** for real-time book search capabilities
-- **Domo AI integration** to generate personalized book recommendations based on:
-  - User's favorite books
-  - Selected genre preferences
-  - Desired mood/tone
-  - Preferred book length
-
-### Data Flow
-
-1. User inputs their book preferences and favorites
-2. Application sends this data to the Domo AI API
-3. AI processes the inputs using the defined system and user prompts
-4. Results are transformed into a standardized JSON format
-5. UI displays the recommendations with relevant explanations
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Deployment
-
-This application is designed to be deployed to the Domo platform. Use the provided upload script to deploy:
-
-```bash
-npm run upload
-```
-
-This will build the application and deploy it to your Domo instance using the Domo CLI.
-
-### Prerequisites for Deployment
-
-- Domo CLI tools installed
-- Proper authentication configured for your Domo instance
-- Appropriate permissions to publish applications
-
-## Customization
-
-You can customize various aspects of the application:
-
-- Modify the UI components in `App.js` and `App.css`
-- Adjust the AI prompts in the `userPrompt` and `systemPrompt` variables
-- Add or remove genres, moods, and book length options as needed
-- Change the visual theme by updating the styling in `App.css`
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-_For Create React App specific documentation, see the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)._
+- The base manifest and thumbnail files are provided in the `public` folder.
+- To add a new entry for specific manifest overrides use `da` (`da manifest my-instance "This is my instance override"` )
+- The proxy server is set up with [@domoinc/ryuu-proxy](https://www.npmjs.com/package/@domoinc/ryuu-proxy) for local development to your domo instance.

@@ -20,27 +20,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  text-align: center;
+  gap: 12px;
   margin: 40px 0;
-  font-family: serif;
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 
 .heading > h1 {
+  margin: 0;
   text-transform: uppercase;
-  font-size: 18px;
+  letter-spacing: 4px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .heading > h2 {
-  font-size: 40px;
+  margin: 0;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .form {
   display: flex;
   gap: 8px;
-}
-
-.recommendations > h1 {
-  font-family: serif;
 }
 
 .bookList {
@@ -70,4 +73,11 @@
 .reason {
   margin: 10px 0;
   font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
 }
