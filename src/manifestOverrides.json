@@ -1,0 +1,10 @@
+{
+  "dev": {
+    "description": "Development.domo.com environment for the Domo app",
+    "manifest": {}
+  },
+  "qa": {
+    "description": "QA.domo.com environment for the Domo app",
+    "manifest": {}
+  }
+}

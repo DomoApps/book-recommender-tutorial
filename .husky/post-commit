@@ -1,0 +1,2 @@
+echo "Commit done:"
+echo $(git log -1 HEAD)

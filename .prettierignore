@@ -1,0 +1,9 @@
+# Ignore artifacts:
+build
+coverage
+.storybook
+
+# Ignore all HTML files:
+**/*.html
+
+vite-env.d.ts

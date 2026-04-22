@@ -1,9 +1,12 @@
 {
-    "name": "React DomoApp",
-    "version": "0.0.1",
-    "size": {
-        "width": 3,
-        "height": 3
-    },
-    "mapping": []
+  "name": "Book Recommender",
+  "version": "0.0.1",
+  "size": {
+    "width": 5,
+    "height": 3
+  },
+  "fullpage": true,
+  "mapping": [],
+  "id": "8c5e598d-6c3a-48cb-86f2-71954602151f",
+  "proxyId": "da3ee198-e9a9-4c8e-bb72-4f31581fe6cb"
 }
