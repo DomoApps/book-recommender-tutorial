@@ -1,4 +1,6 @@
 # AI Book Recommender
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDomoApps%2Fbook-recommender-tutorial.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDomoApps%2Fbook-recommender-tutorial?ref=badge_shield)
+
 
 A Domo Custom App that recommends books using Domo's AI Service Layer. The user picks favorite books (searched live against [Open Library](https://openlibrary.org/)), genre, mood, and length; a structured system prompt drives the `/domo/ai/v1/text/generation` endpoint to return four JSON-formatted recommendations.
 
@@ -63,3 +65,7 @@ See the [tutorial](https://domo.com/docs/portal/Apps/App-Framework/Tutorials/Rea
 | `pnpm generate`  | Scaffold new components / reducers with `da generate` |
 | `pnpm test`      | Run Vitest                                            |
 | `pnpm storybook` | Launch Storybook                                      |
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDomoApps%2Fbook-recommender-tutorial.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDomoApps%2Fbook-recommender-tutorial?ref=badge_large)
